@@ -46,10 +46,7 @@ public class Main {
     }
 
     public static boolean isValid(String string) {
-        if (!string.contains("[")) {
-            return false;
-        }
-        if (!Character.isDigit(string.charAt(0))) {
+        if (!string.contains("[") || !Character.isDigit(string.charAt(0)) || string.contains(" ")) {
             return false;
         }
         return true;
