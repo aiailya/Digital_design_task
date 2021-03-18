@@ -23,7 +23,14 @@ public class Main {
     public static String unpacking (String string) {
         int startIndex = string.lastIndexOf('[') + 1; //начало обрабатываемой подстроки
         int finishIndex = string.length(); //конец обрабатываемой подстроки (изначально - конец строки)
-        int howMuch = Character.getNumericValue(string.charAt(startIndex - 2)); //сколько раз повторяется подстрока
+        int numIndex = 0;
+        for (int i = startIndex-2; i > 0; i--) { //на тот случай, если число состоит из нескольких цифр
+            if (!Character.isDigit(string.charAt(i))) {
+                numIndex = i+1;
+                break;
+            }
+        }
+        int howMuch = Integer.parseInt(string.substring(numIndex, startIndex - 1)); //сколько раз повторяется строка
         for (int i = startIndex; i < string.length(); i++) { //корректируем значение finishIndex
             if (string.charAt(i) == ']') {
                 finishIndex = i;
@@ -34,12 +41,15 @@ public class Main {
         for (int i = 0; i < howMuch; i++) { //создаём подстроку
             insert.append(string.substring(startIndex, finishIndex));
         }
-        String result = string.substring(0, startIndex-2)  + insert + string.substring(finishIndex + 1); //результат
+        String result = string.substring(0, numIndex)  + insert + string.substring(finishIndex + 1); //результат
         return result;
     }
 
     public static boolean isValid(String string) {
         if (!string.contains("[")) {
+            return false;
+        }
+        if (!Character.isDigit(string.charAt(0))) {
             return false;
         }
         return true;
