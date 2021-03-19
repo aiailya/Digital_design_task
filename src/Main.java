@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -46,9 +48,26 @@ public class Main {
     }
 
     public static boolean isValid(String string) {
-        if (!string.contains("[") || !Character.isDigit(string.charAt(0)) || string.contains(" ")) {
-            return false;
+        boolean result = true;
+        int counter = 0;
+        for (int i = 0; i < string.length(); i++) { //проверка на одинаковое количество открывающих и закрывающих скобок
+            if (string.charAt(i) == '[') {
+                counter++;
+            }
+            if (string.charAt(i) == ']') {
+                counter--;
+            }
         }
-        return true;
+        if (counter == 0) {
+            result = true;
+        } else {
+            result = false;
+        }
+        Pattern pattern = Pattern.compile("[^A-z0-9\\[\\]]"); //проверка на разрешённые символы
+        Matcher matcher = pattern.matcher(string);
+        while (matcher.find()) {
+            result = false;
+        }
+        return result;
     }
 }
