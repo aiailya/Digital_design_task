@@ -1,3 +1,4 @@
+//Тестовое задание, Тимченко Илья
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
@@ -58,9 +59,7 @@ public class Main {
                 counter--;
             }
         }
-        if (counter == 0) {
-            result = true;
-        } else {
+        if (counter != 0) {
             result = false;
         }
         Pattern pattern = Pattern.compile("[^A-z0-9\\[\\]]"); //проверка на разрешённые символы
